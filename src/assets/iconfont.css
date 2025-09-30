@@ -1,0 +1,37 @@
+@font-face {
+  font-family: "icon"; /* Project id 4782787 */
+  src:url('@/assets/fonts/iconfont.ttf') format('truetype');
+}
+
+.icon {
+  font-family: "icon";
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-fenxi:before {
+  content: "\e668";
+}
+
+.icon-navicon-xtgl:before {
+  content: "\e641";
+}
+
+.icon-shendufenxi:before {
+  content: "\e65d";
+}
+
+.icon-data-Inquire:before {
+  content: "\e93f";
+}
+
+.icon-signal:before {
+  content: "\e950";
+}
+
+.icon-base-signal:before {
+  content: "\e958";
+}
+

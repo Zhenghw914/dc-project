@@ -1,0 +1,35 @@
+<template>
+  <div>
+    <BaseChart :options="chartOptions" width="100%" height="400px" />
+  </div>
+</template>
+
+<script setup>
+import BaseChart from "@/components/BaseChart.vue"; // 引入封装的图表组件
+import { ref, onMounted } from "vue";
+const chartOptions = ref({
+    title: {
+      text: "示例图表",
+    },
+    tooltip: {
+      trigger: "axis",
+    },
+    xAxis: {
+      type: "category",
+      data: ["A", "B", "C", "D"],
+    },
+    yAxis: {
+      type: "value",
+    },
+    series: [
+      {
+        data: [10, 20, 30, 40],
+        type: "line",
+        smooth: true,
+      },
+    ],
+  });
+    
+
+
+</script>
