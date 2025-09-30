@@ -1,0 +1,51 @@
+import store from "@/store";
+import { EventBus } from "@/utils/eventBus";
+import { showToast } from "vant";
+
+// 设备上报和响应逻辑
+export function webviewBridge({ function: func, data, dataCode, msg }) {
+  try {
+    if (func === "device-data") {
+      // 设备数据上报处理逻辑
+      switch (dataCode) {
+        case 20017:
+          store.dispatch("spectrumData/updateSpectrumData", data);
+          break;
+        case 20018:
+          store.dispatch("signalData/updateSignalData", data);
+          break;
+        case 20021:
+          store.dispatch("wifiData/updatewifiData", data);
+          break;
+        case 20024:
+          store.dispatch("btData/updatebtData", data);
+          break;
+        case 20005:
+          store.dispatch("sysInfo/updateSysInfo", data);
+          break;
+        case 50000:
+        case 50001:
+          if (data.state) {
+            showToast("设备上线");
+          } else {
+            showToast("设备掉线");
+          }
+          store.state.deviceState = data.state;
+          break;
+        default:
+        // console.warn("未处理的设备上报 dataCode:", dataCode);
+      }
+    } else if (func === "device-req") {
+      // 设备操作响应处理逻辑，使用 mitt 广播事件
+      EventBus.emit("android-response", { data, dataCode, msg });
+      console.log("$emit success");
+    } else {
+      // console.warn("未知的 function 类型:", func);
+    }
+  } catch (error) {
+    // console.error("解析设备数据失败:", error);
+  }
+}
+
+// 绑定到 window
+window.webviewBridge = webviewBridge;
